@@ -1,1 +1,1 @@
-include ':app', ':canguidehint'
+include ':app', ':canguide'
