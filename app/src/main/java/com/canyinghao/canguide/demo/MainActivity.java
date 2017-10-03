@@ -1,6 +1,5 @@
 package com.canyinghao.canguide.demo;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
         btn = (Button) findViewById(R.id.btn);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
-        }
     }
 
 

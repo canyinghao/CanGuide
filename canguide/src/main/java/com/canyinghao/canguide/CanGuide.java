@@ -24,16 +24,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.canyinghao.canguide.model.GuideBean;
-import com.canyinghao.canguide.model.GuideRelativeType;
-import com.canyinghao.canguide.model.GuideType;
+import com.canyinghao.canguide.model.ViewBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by canyinghao on 2017/9/30.
- */
+import static com.canyinghao.canguide.model.GuideRelativeType.BOTTOM;
+import static com.canyinghao.canguide.model.GuideRelativeType.LEFT;
+import static com.canyinghao.canguide.model.GuideRelativeType.RIGHT;
+import static com.canyinghao.canguide.model.GuideRelativeType.TOP;
+import static com.canyinghao.canguide.model.GuideType.CIRCLE;
+import static com.canyinghao.canguide.model.GuideType.OVAL;
+import static com.canyinghao.canguide.model.GuideType.RECTANGLE;
+import static com.canyinghao.canguide.model.GuideType.ROUND_RECTANGLE;
 
+/**
+ * Copyright 2017 canyinghao
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 public class CanGuide extends FrameLayout {
 
     private static String spTag = "CanGuide";
@@ -43,6 +59,7 @@ public class CanGuide extends FrameLayout {
     protected List<GuideBean> mGuides;
     protected List<GuideBean> mGuideRelatives;
     protected List<GuideBean> mGuidePositions;
+    protected List<ViewBean> mViewBeans;
 
     protected SparseArray<View> mViews;
     //  是否处于显示状态
@@ -124,16 +141,16 @@ public class CanGuide extends FrameLayout {
                 }
 
                 switch (guideBean.type) {
-                    case GuideType.CIRCLE:
+                    case CIRCLE:
                         canvas.drawCircle(rectF.centerX(), rectF.centerY(), guideBean.round == 0 ? guideBean.getMaxRadius() : guideBean.round, mPaint);
                         break;
-                    case GuideType.OVAL:
+                    case OVAL:
                         canvas.drawOval(rectF, mPaint);
                         break;
-                    case GuideType.ROUND_RECTANGLE:
+                    case ROUND_RECTANGLE:
                         canvas.drawRoundRect(rectF, guideBean.round, guideBean.round, mPaint);
                         break;
-                    case GuideType.RECTANGLE:
+                    case RECTANGLE:
                     default:
                         canvas.drawRect(rectF, mPaint);
                         break;
@@ -170,10 +187,27 @@ public class CanGuide extends FrameLayout {
                 paramsView.topMargin = CanGuideUtils.getStatusBarHeight(mContext);
             }
             paramsView.bottomMargin = CanGuideUtils.getNavigationBarHeight(mContext);
-            if (mClickViewIds != null) {
+            if (mClickViewIds != null&&mClickViewIds.length>0) {
                 for (int viewId : mClickViewIds) {
                     mLayoutView.findViewById(viewId).setOnClickListener(dismissListener);
                 }
+            }
+
+            if(mViewBeans!=null&&!mViewBeans.isEmpty()){
+
+                for(ViewBean viewBean:mViewBeans){
+                   View mView= mLayoutView.findViewById(viewBean.viewId);
+                    if(mView instanceof TextView){
+                        if(viewBean.resId!=0){
+                            ((TextView) mView).setText(viewBean.resId);
+                        }else{
+                            ((TextView) mView).setText(viewBean.text);
+                        }
+                    }else if(mView instanceof ImageView){
+                        ((ImageView) mView).setImageResource(viewBean.resId);
+                    }
+                }
+
             }
 
             addView(mLayoutView, paramsView);
@@ -203,7 +237,7 @@ public class CanGuide extends FrameLayout {
 
                                         LayoutParams layoutParams;
                                         switch (bean.type) {
-                                            case GuideRelativeType.LEFT:
+                                            case LEFT:
 
                                                 layoutParams = (LayoutParams) viewHint.getLayoutParams();
                                                 layoutParams.leftMargin = (int) rectF.left - viewHint.getMeasuredWidth() + bean.offsetLeft;
@@ -214,7 +248,7 @@ public class CanGuide extends FrameLayout {
 
                                                 break;
 
-                                            case GuideRelativeType.RIGHT:
+                                            case RIGHT:
 
                                                 layoutParams = (LayoutParams) viewHint.getLayoutParams();
                                                 layoutParams.leftMargin = (int) rectF.right + bean.offsetRight;
@@ -225,7 +259,7 @@ public class CanGuide extends FrameLayout {
 
                                                 break;
 
-                                            case GuideRelativeType.TOP:
+                                            case TOP:
 
                                                 layoutParams = (LayoutParams) viewHint.getLayoutParams();
                                                 layoutParams.topMargin = (int) rectF.top - viewHint.getMeasuredHeight() + bean.offsetTop;
@@ -236,7 +270,7 @@ public class CanGuide extends FrameLayout {
 
                                                 break;
 
-                                            case GuideRelativeType.BOTTOM:
+                                            case BOTTOM:
 
                                                 layoutParams = (LayoutParams) viewHint.getLayoutParams();
                                                 layoutParams.topMargin = (int) rectF.bottom + bean.offsetTop;
@@ -394,45 +428,22 @@ public class CanGuide extends FrameLayout {
     }
 
 
-    public void setImageResource(@IdRes int viewId, @DrawableRes int imageResId) {
-
-        ImageView view = getView(viewId);
-        if(view!=null){
-            view.setImageResource(imageResId);
+    public void addViewBean(int viewId, int resId) {
+        if (mViewBeans == null) {
+            mViewBeans = new ArrayList<>();
         }
+        mViewBeans.add(new ViewBean(viewId, resId));
 
     }
 
-    public void setText(@IdRes int viewId, CharSequence text) {
-
-        TextView view = getView(viewId);
-        if(view!=null){
-            view.setText(text);
+    public void addViewBean(int viewId, CharSequence text) {
+        if (mViewBeans == null) {
+            mViewBeans = new ArrayList<>();
         }
-
+        mViewBeans.add(new ViewBean(viewId, text));
 
     }
 
-
-    public void setText(@IdRes int viewId, @StringRes int stringResId) {
-
-        TextView view = getView(viewId);
-        if(view!=null){
-            view.setText(stringResId);
-        }
-
-
-
-    }
-
-    public <T extends View> T getView(@IdRes int viewId) {
-        View view = mViews.get(viewId);
-        if (view == null&&mLayoutView!=null) {
-            view = mLayoutView.findViewById(viewId);
-            mViews.put(viewId, view);
-        }
-        return (T) view;
-    }
 
 
     public void setIsStatusBarHeight(boolean statusBarHeight) {
@@ -581,6 +592,36 @@ public class CanGuide extends FrameLayout {
             return this;
 
         }
+
+
+        public Builder setImageResource(@IdRes int viewId, @DrawableRes int imageResId) {
+
+            if (mGuide != null) {
+                mGuide.addViewBean(viewId,imageResId);
+            }
+            return this;
+        }
+
+        public Builder setText(@IdRes int viewId, CharSequence text) {
+
+            if (mGuide != null) {
+                mGuide.addViewBean(viewId,text);
+            }
+
+            return this;
+        }
+
+
+        public Builder setText(@IdRes int viewId, @StringRes int stringResId) {
+
+            if (mGuide != null) {
+                mGuide.addViewBean(viewId,stringResId);
+            }
+
+            return this;
+
+        }
+
 
 
         public CanGuide show() {

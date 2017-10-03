@@ -1,10 +1,5 @@
 package com.canyinghao.canguide.model;
 
-import android.support.annotation.IntDef;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 /**
  * Copyright 2017 canyinghao
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,20 +12,25 @@ import java.lang.annotation.RetentionPolicy;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@IntDef({GuideType.CIRCLE, GuideType.RECTANGLE, GuideType.OVAL,
-        GuideType.ROUND_RECTANGLE})
-@Retention(RetentionPolicy.SOURCE)
-public @interface GuideType {
+public class ViewBean {
 
-     int CIRCLE = 0;
+    public int viewId;
 
-     int RECTANGLE = 1;
+    public int resId;
 
-     int OVAL=2;
-
-     int ROUND_RECTANGLE = 3;
+    public CharSequence text;
 
 
+    public ViewBean(int viewId, int resId) {
+        this.viewId = viewId;
+        this.resId = resId;
+    }
 
+    public ViewBean(int viewId, CharSequence text) {
+        this.viewId = viewId;
+        this.text = text;
+    }
 
+    public ViewBean() {
+    }
 }
