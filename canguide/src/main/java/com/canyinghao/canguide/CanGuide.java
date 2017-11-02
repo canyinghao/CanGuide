@@ -235,53 +235,56 @@ public class CanGuide extends FrameLayout {
                                         View viewHint = mLayoutView.findViewById(bean.viewId);
 
 
-                                        LayoutParams layoutParams;
-                                        switch (bean.type) {
-                                            case LEFT:
+                                        if(viewHint!=null){
+                                            LayoutParams layoutParams;
+                                            switch (bean.type) {
+                                                case LEFT:
 
-                                                layoutParams = (LayoutParams) viewHint.getLayoutParams();
-                                                layoutParams.leftMargin = (int) rectF.left - viewHint.getMeasuredWidth() + bean.offsetLeft;
-                                                layoutParams.topMargin = bean.offsetTop;
-                                                layoutParams.bottomMargin = bean.offsetBottom;
-                                                layoutParams.rightMargin = bean.offsetRight;
-                                                viewHint.setLayoutParams(layoutParams);
+                                                    layoutParams = (LayoutParams) viewHint.getLayoutParams();
+                                                    layoutParams.leftMargin = (int) rectF.left - viewHint.getMeasuredWidth() + bean.offsetLeft;
+                                                    layoutParams.topMargin = bean.offsetTop;
+                                                    layoutParams.bottomMargin = bean.offsetBottom;
+                                                    layoutParams.rightMargin = bean.offsetRight;
+                                                    viewHint.setLayoutParams(layoutParams);
 
-                                                break;
+                                                    break;
 
-                                            case RIGHT:
+                                                case RIGHT:
 
-                                                layoutParams = (LayoutParams) viewHint.getLayoutParams();
-                                                layoutParams.leftMargin = (int) rectF.right + bean.offsetRight;
-                                                layoutParams.topMargin = bean.offsetTop;
-                                                layoutParams.bottomMargin = bean.offsetBottom;
-                                                layoutParams.rightMargin = bean.offsetRight;
-                                                viewHint.setLayoutParams(layoutParams);
+                                                    layoutParams = (LayoutParams) viewHint.getLayoutParams();
+                                                    layoutParams.leftMargin = (int) rectF.right + bean.offsetRight;
+                                                    layoutParams.topMargin = bean.offsetTop;
+                                                    layoutParams.bottomMargin = bean.offsetBottom;
+                                                    layoutParams.rightMargin = bean.offsetRight;
+                                                    viewHint.setLayoutParams(layoutParams);
 
-                                                break;
+                                                    break;
 
-                                            case TOP:
+                                                case TOP:
 
-                                                layoutParams = (LayoutParams) viewHint.getLayoutParams();
-                                                layoutParams.topMargin = (int) rectF.top - viewHint.getMeasuredHeight() + bean.offsetTop;
-                                                layoutParams.leftMargin = bean.offsetLeft;
-                                                layoutParams.bottomMargin = bean.offsetBottom;
-                                                layoutParams.rightMargin = bean.offsetRight;
-                                                viewHint.setLayoutParams(layoutParams);
+                                                    layoutParams = (LayoutParams) viewHint.getLayoutParams();
+                                                    layoutParams.topMargin = (int) rectF.top - viewHint.getMeasuredHeight() + bean.offsetTop;
+                                                    layoutParams.leftMargin = bean.offsetLeft;
+                                                    layoutParams.bottomMargin = bean.offsetBottom;
+                                                    layoutParams.rightMargin = bean.offsetRight;
+                                                    viewHint.setLayoutParams(layoutParams);
 
-                                                break;
+                                                    break;
 
-                                            case BOTTOM:
+                                                case BOTTOM:
 
-                                                layoutParams = (LayoutParams) viewHint.getLayoutParams();
-                                                layoutParams.topMargin = (int) rectF.bottom + bean.offsetTop;
-                                                layoutParams.leftMargin = bean.offsetLeft;
-                                                layoutParams.bottomMargin = bean.offsetBottom;
-                                                layoutParams.rightMargin = bean.offsetRight;
-                                                viewHint.setLayoutParams(layoutParams);
+                                                    layoutParams = (LayoutParams) viewHint.getLayoutParams();
+                                                    layoutParams.topMargin = (int) rectF.bottom + bean.offsetTop;
+                                                    layoutParams.leftMargin = bean.offsetLeft;
+                                                    layoutParams.bottomMargin = bean.offsetBottom;
+                                                    layoutParams.rightMargin = bean.offsetRight;
+                                                    viewHint.setLayoutParams(layoutParams);
 
 
-                                                break;
+                                                    break;
+                                            }
                                         }
+
 
 
                                     }
