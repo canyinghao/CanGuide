@@ -19,10 +19,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.canyinghao.candialog.CanDialogInterface;
+import com.canyinghao.candialog.CanManagerDialog;
 import com.canyinghao.canguide.model.GuideBean;
 import com.canyinghao.canguide.model.ViewBean;
 
@@ -50,7 +51,7 @@ import static com.canyinghao.canguide.model.GuideType.ROUND_RECTANGLE;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class CanGuide extends FrameLayout {
+public class CanGuide extends CanManagerDialog{
 
     private static String spTag = "CanGuide";
 
@@ -344,13 +345,20 @@ public class CanGuide extends FrameLayout {
     /**
      * 取消
      */
-    protected void dismiss() {
+    public void dismiss() {
         ViewGroup rootView = (ViewGroup) mContext.getWindow().getDecorView();
         rootView.removeView(this);
         isShowing = false;
         if (mOnCanGuideListener != null) {
             mOnCanGuideListener.onDismiss(this);
         }
+        if(mOnDismissListeners!=null&&!mOnDismissListeners.isEmpty()){
+            for(CanDialogInterface.OnDismissListener onDismissListener:mOnDismissListeners){
+                onDismissListener.onDismiss(this);
+            }
+            mOnDismissListeners.clear();
+        }
+
     }
 
     public void setUseKey(String useKey) {
@@ -629,7 +637,7 @@ public class CanGuide extends FrameLayout {
 
         public CanGuide show() {
             if (mGuide != null) {
-                mGuide.show();
+                mGuide.showManager();
             }
 
             return mGuide;
@@ -639,11 +647,6 @@ public class CanGuide extends FrameLayout {
     }
 
 
-    public interface OnCanGuideListener {
-        void onShow(CanGuide dialog);
-
-        void onDismiss(CanGuide dialog);
-    }
 
 
     public static void initConfig(String tag) {
@@ -652,5 +655,6 @@ public class CanGuide extends FrameLayout {
         }
 
     }
+
 
 }

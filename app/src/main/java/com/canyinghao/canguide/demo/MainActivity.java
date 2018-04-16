@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.canyinghao.canguide.CanGuide;
 import com.canyinghao.canguide.CanGuideUtils;
+import com.canyinghao.canguide.OnCanGuideListener;
 import com.canyinghao.canguide.model.GuideRelativeType;
 import com.canyinghao.canguide.model.GuideType;
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 .setLayoutId(R.layout.main_guide)
                 .setViewIds(R.id.btn_next)
                 .setCancelable(false)
-                .setOnCanGuideListener(new CanGuide.OnCanGuideListener() {
+                .setOnCanGuideListener(new OnCanGuideListener() {
                     @Override
                     public void onShow(CanGuide dialog) {
 
@@ -48,7 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 })
-//                .setBackgroundColor()
+                .show();
+
+
+        new CanGuide.Builder(this)
+                .addGuideView(btn, GuideType.CIRCLE)
+                .setViewPosition(btn,R.id.iv, GuideRelativeType.LEFT,0, (int) CanGuideUtils.getRectByView(btn).top,0,0)
+                .setLayoutId(R.layout.main_guide)
+                .setViewIds(R.id.btn_next)
+                .setCancelable(false)
                 .show();
 
     }
