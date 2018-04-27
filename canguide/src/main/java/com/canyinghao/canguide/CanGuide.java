@@ -110,6 +110,7 @@ public class CanGuide extends CanManagerDialog{
     public CanGuide(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = (Activity) context;
+        setActivity(this.mContext);
         init();
     }
 
