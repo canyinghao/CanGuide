@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 .setViewPosition(btn,R.id.iv, GuideRelativeType.LEFT,0, (int) CanGuideUtils.getRectByView(btn).top,0,0)
                 .setLayoutId(R.layout.main_guide)
                 .setViewIds(R.id.btn_next)
-                .setCancelable(false)
+                .setCancelable(true)
                 .setOnCanGuideListener(new OnCanGuideListener() {
                     @Override
                     public void onShow(CanGuide dialog) {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 .setViewPosition(btn,R.id.iv, GuideRelativeType.LEFT,0, (int) CanGuideUtils.getRectByView(btn).top,0,0)
                 .setLayoutId(R.layout.main_guide)
                 .setViewIds(R.id.btn_next)
-                .setCancelable(false)
+                .setCancelable(true)
                 .show();
 
     }

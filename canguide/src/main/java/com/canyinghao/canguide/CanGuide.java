@@ -15,6 +15,7 @@ import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,6 +181,22 @@ public class CanGuide extends CanManagerDialog{
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
         rootView.addView(this, params);
+
+        setFocusable(true);
+        setFocusableInTouchMode(true);
+        requestFocus();
+        setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+
+                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+                    if (mCancelable) {
+                        dismiss();
+                    }
+                }
+                return true;
+            }
+        });
 
 
         if (mLayoutId != 0) {
