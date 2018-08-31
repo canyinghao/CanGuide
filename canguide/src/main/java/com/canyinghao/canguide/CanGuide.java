@@ -80,6 +80,7 @@ public class CanGuide extends CanManagerDialog{
 
 
     protected boolean isStatusBarHeight = true;
+    protected boolean isHideNavigationBarHeight = false;
 
     protected int mLayoutId;
     protected View mLayoutView;
@@ -205,7 +206,9 @@ public class CanGuide extends CanManagerDialog{
             if (isStatusBarHeight) {
                 paramsView.topMargin = CanGuideUtils.getStatusBarHeight(mContext);
             }
-            paramsView.bottomMargin = CanGuideUtils.getNavigationBarHeight(mContext);
+            if(!isHideNavigationBarHeight){
+                paramsView.bottomMargin = CanGuideUtils.getNavigationBarHeight(mContext);
+            }
             if (mClickViewIds != null&&mClickViewIds.length>0) {
                 for (int viewId : mClickViewIds) {
                     mLayoutView.findViewById(viewId).setOnClickListener(dismissListener);
@@ -479,6 +482,10 @@ public class CanGuide extends CanManagerDialog{
         isStatusBarHeight = statusBarHeight;
     }
 
+    public void setHideNavigationBarHeight(boolean hideNavigationBarHeight) {
+        isHideNavigationBarHeight = hideNavigationBarHeight;
+    }
+
     public static class Builder {
 
         private CanGuide mGuide;
@@ -622,6 +629,13 @@ public class CanGuide extends CanManagerDialog{
 
         }
 
+        public Builder setHideNavigationBarHeight(boolean navigationBarHeight) {
+            if (mGuide != null) {
+                mGuide.setHideNavigationBarHeight(navigationBarHeight);
+            }
+            return this;
+
+        }
 
         public Builder setImageResource(@IdRes int viewId, @DrawableRes int imageResId) {
 
