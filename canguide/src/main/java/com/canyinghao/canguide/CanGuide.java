@@ -367,18 +367,24 @@ public class CanGuide extends CanManagerDialog{
      * 取消
      */
     public void dismiss() {
-        ViewGroup rootView = (ViewGroup) mContext.getWindow().getDecorView();
-        rootView.removeView(this);
-        isShowing = false;
-        if (mOnCanGuideListener != null) {
-            mOnCanGuideListener.onDismiss(this);
-        }
-        if(mOnDismissListeners!=null&&!mOnDismissListeners.isEmpty()){
-            for(CanDialogInterface.OnDismissListener onDismissListener:mOnDismissListeners){
-                onDismissListener.onDismiss(this);
+        try{
+            ViewGroup rootView = (ViewGroup) mContext.getWindow().getDecorView();
+            rootView.removeView(this);
+            isShowing = false;
+            if (mOnCanGuideListener != null) {
+                mOnCanGuideListener.onDismiss(this);
             }
-            mOnDismissListeners.clear();
+            if(mOnDismissListeners!=null&&!mOnDismissListeners.isEmpty()){
+                for(CanDialogInterface.OnDismissListener onDismissListener:mOnDismissListeners){
+                    onDismissListener.onDismiss(this);
+                }
+                mOnDismissListeners.clear();
+            }
+        }catch (Throwable e){
+            e.printStackTrace();
         }
+        super.dismiss();
+
 
     }
 
