@@ -9,9 +9,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -30,6 +27,10 @@ import com.canyinghao.canguide.model.ViewBean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.StringRes;
 
 import static com.canyinghao.canguide.model.GuideRelativeType.BOTTOM;
 import static com.canyinghao.canguide.model.GuideRelativeType.LEFT;

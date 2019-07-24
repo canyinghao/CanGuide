@@ -1,8 +1,6 @@
 package com.canyinghao.canguide.demo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +9,9 @@ import com.canyinghao.canguide.CanGuideUtils;
 import com.canyinghao.canguide.OnCanGuideListener;
 import com.canyinghao.canguide.model.GuideRelativeType;
 import com.canyinghao.canguide.model.GuideType;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by canyinghao on 2017/9/30.
